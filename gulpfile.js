@@ -1,10 +1,10 @@
 var gulp = require("gulp");
 var browserSync = require("browser-sync");
-var karma = require("karma").server;
+var karma = require("karma").Server;
 var server = require("gulp-live-server");
 
 gulp.task("server", function(){
-    var live = new server("server.js");
+    var live = server.new("server.js");
     live.start();
 });
 
@@ -22,12 +22,25 @@ gulp.task("serve",["server"], function(){
     gulp.watch(["app/**/*.*"]).on("change", browserSync.reload);
 });
 
-gulp.task("test-browser", function(){
-   karma.start({
+gulp.task("test-browser", function(done){
+   var server = new karma({
        configFile: __dirname + "/karma.conf.js",
        singleRun: true,
-       reporters:["mocha"]
-   })
+       reporters:["mocha","coverage"]
+   }, done);
+
+    server.start();
+});
+
+gulp.task("serve-coverage",["test-browser"], function(){
+    browserSync.init({
+        notify: false,
+        port: 7777,
+        server:{
+            baseDir:["test/coverage"]
+        }
+    });
+    gulp.watch(["test/**/*.*"]).on("change", browserSync.reload);
 });
 
 gulp.task("serve-test", function(){
