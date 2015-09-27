@@ -14,6 +14,7 @@
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-live-server": "0.0.28",
+    "gulp-protractor": "^1.0.0",
     "istanbul": "^0.3.21",
     "karma": "^0.13.10",
     "karma-coverage": "^0.5.2",
