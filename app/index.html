@@ -3,15 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <script src="/bower_components/angular/angular.js"></script>
-    <title></title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="styles/main.css"/>
+    <title>Address Book</title>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <div ng-controller="contactController">
+<div class="app-title">
+    <h1>Contact</h1>
+    <h2>Address Book</h2>
+</div>
+    <div ng-controller="contactController" class="contact-list inline-module">
         <div ng-repeat="contact in contacts">
-            {{contact.name}}
+           <h4>
+               <span class="contact-name">{{contact.name}}</span>
             <avatar name="contact.name"></avatar>
+           </h4>
+            <p>{{contact.occupation}}</p>
+            <p>
+                <a href="mailto:{{contact.email}}">
+                    {{contact.email}}
+                </a>
+            </p>
         </div>
+    </div>
+    <div ng-controller="addContact" class="add-contact inline-module">
+        <form ng-submit="addContact()">
+            <h3>Add A New Contact</h3>
+            <label>
+                Name*
+                <input type="text" required ng-model="contact.name">
+            </label>
+            <label>
+                Age
+                <input type="number" ng-model="contact.age">
+            </label>
+            <label>
+                Email*
+                <input type="email" required ng-model="contact.email">
+            </label>
+            <label>
+                Occupation
+                <input type="text" ng-model="contact.occupation">
+            </label>
+            <label for="submitNewContact">
+                Add New Contact
+                <input type="submit" id="submitNewContact">
+            </label>
+            <div class="warning" ng-if="errorMessage">Please check the information and try again.</div>
+        </form>
     </div>
 <script src="main.js"></script>
 </body>
